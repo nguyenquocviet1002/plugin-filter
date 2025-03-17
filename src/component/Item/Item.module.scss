@@ -1,0 +1,23 @@
+.item{
+    margin-bottom: 10px;
+    background-color: #C1DAFF;
+    border-radius: 15px;
+}
+.odd{
+    background-color: #fff;
+}
+.even{
+    background-color: #ebebeb;
+}
+.btn{
+    color: #000;
+    width: fit-content;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin: 5px 10px 0 auto;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    &:hover{
+        color: #13305B;
+    }
+}

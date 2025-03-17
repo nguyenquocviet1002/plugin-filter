@@ -1,0 +1,28 @@
+.tabs{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    @media (max-width: 767px){
+        width: 100%;
+    }
+}
+.tab{
+    flex: 1 auto;
+    background-color: #F1F1F1;
+    text-align: center;
+    margin: 5px;
+    padding: 6px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    cursor: pointer;
+    &:hover{
+        background-color: #ccc;
+    }
+    &.active{
+        background-color: #C1DAFF;
+    }
+}

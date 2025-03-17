@@ -1,0 +1,37 @@
+.btn{
+    background-color: #ccc;
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 125px;
+    height: 40px;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    &.primary{
+        background-color: #D1A969;
+        &:hover{
+            background-color: #a57a34;
+        }
+    }
+    &.second{
+        background-color: #093B86;
+    }
+    &.small{
+        max-width: 70px;
+        height: 25px;
+        font-size: 14px;
+    }
+}
+.icon{
+    padding-left: 5px;
+    img{
+        width: 20px;
+        height: auto;
+        display: block;
+    }
+}

@@ -1,0 +1,31 @@
+.pagination{
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0px 0px 5px 2px #ebecef;
+    border-radius: 6px;
+    padding: 0;
+    width: fit-content;
+    margin: 0 auto;
+}
+.control{
+    padding: 10px;
+    min-width: 40px;
+    margin: 0;
+    border: 1px solid #dfdfdf;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    background-color: #fff;
+    &.active{
+        background-color: #dfdfdf;
+    }
+}
+.back{
+    border-radius: 6px 0 0 6px;
+}
+.next{
+    border-radius: 0 6px 6px 0;
+}
