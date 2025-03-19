@@ -1,5 +1,5 @@
 .label__wrapper{
-    font-size: 17px;
+    font-size: 14px;
     border-bottom: 1px solid #fff;
     padding: 10px;
     &:last-child{
@@ -12,13 +12,12 @@
 }
 .value{
     display: inline;
-    color: #444E4D;
+    color: #000;
     strong{
         display: none;
     }
 }
 .obj{
-    margin-bottom: 5px;
     color: #444E4D;
     &:last-child{
         margin-bottom: 0;
@@ -26,12 +25,13 @@
 }
 .text{
     font-weight: 600;
+    color: #1c4ba0;
 }
 .security{
     padding: 5px 10px;
     border-radius: 7px;
     display: inline-block;
-    font-size: 15px;
+    font-size: 12px;
 }
 .critical{
     background-color: #E32C3D;
@@ -62,6 +62,5 @@
         display: inline;
     }
     .obj{
-        margin-bottom: 2px;
     }
 }

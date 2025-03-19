@@ -15,6 +15,7 @@ function getWindowDimensions() {
 const Item = ({data, index}) => {
   const [isDropdown, setIsDropdown] = useState(true);
   const [level, setLevel] = useState([]);
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
 
   const {bo_luat, muc_do, lan_1, lan_2, lan_3, xu_ly} = data;
 
@@ -33,6 +34,7 @@ const Item = ({data, index}) => {
   useEffect(() => {
     function handleResize() {
       if(getWindowDimensions()['width'] < 768){
+        setWindowDimensions(getWindowDimensions());
         setIsDropdown(false);
       }
     }
@@ -48,7 +50,9 @@ const Item = ({data, index}) => {
   return (
     <div className={itemStyled['item']}>
       <div className={itemStyled['box']}>
+        <div onClick={windowDimensions.width < 786 ? handleDropdown : null}>
         <Label label={bo_luat} value={bo_luat} />
+        </div>
         {isDropdown && (
           <>
             <Label value={level} />

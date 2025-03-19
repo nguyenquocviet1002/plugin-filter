@@ -20,8 +20,15 @@
     justify-content: space-between;
     margin-top: 10px;
 }
+.container-full{
+    width: 80%;
+    margin: 0 auto;
+}
 @media (max-width: 768px){
     .filter_ksnb_1_0_0__inner{
         flex-wrap: wrap;
+    }
+    .container-full{
+        width: 100%;
     }
 }

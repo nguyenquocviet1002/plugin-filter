@@ -175,7 +175,7 @@ const App = () => {
         </div>
         </div>
       </div>
-      <div className="container">
+      <div className="container-full">
         <div className="filter_ksnb_1_0_0__main">
           {nhomLoi.map((item, index) => {
             return <List data={refillData(item)} cate={item} key={item} index={index} show={show} />;
