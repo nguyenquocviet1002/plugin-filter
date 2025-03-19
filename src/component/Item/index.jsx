@@ -2,12 +2,21 @@ import React, { useEffect, useState } from "react";
 import Label from "../Label";
 import { removeAccented } from "../../utils/setup";
 import itemStyled from './Item.module.scss';
+import IMAGES from "../../Images/Images";
+
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height
+  };
+}
 
 const Item = ({data, index}) => {
-  const [isDropdown, setIsDropdown] = useState(false);
+  const [isDropdown, setIsDropdown] = useState(true);
   const [level, setLevel] = useState([]);
 
-  const {bo_luat, doi_tuong, muc_do, nhom_loi, lan_1, lan_2, lan_3, xu_ly} = data;
+  const {bo_luat, muc_do, lan_1, lan_2, lan_3, xu_ly} = data;
 
   useEffect(() => {
     if(lan_1){
@@ -21,7 +30,16 @@ const Item = ({data, index}) => {
     }
   }, [lan_1, lan_2, lan_3]);
 
-  
+  useEffect(() => {
+    function handleResize() {
+      if(getWindowDimensions()['width'] < 768){
+        setIsDropdown(false);
+      }
+    }
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleDropdown = () => {
     setIsDropdown(!isDropdown);
@@ -29,19 +47,17 @@ const Item = ({data, index}) => {
 
   return (
     <div className={itemStyled['item']}>
-      <div>
-        <Label label="Nội dung" value={bo_luat} />
+      <div className={itemStyled['box']}>
+        <Label label={bo_luat} value={bo_luat} />
         {isDropdown && (
           <>
-            <Label label="Đối tượng áp dụng" value={doi_tuong} />
-            <Label label="Mức độ" value={muc_do} color={removeAccented(muc_do) === 'nghiem trong' ? 'critical' : removeAccented(muc_do) === 'nang' ? 'high' : removeAccented(muc_do)  === 'trung binh' ? 'medium' : 'low' }/>
-            <Label label="Nhóm lỗi" value={nhom_loi} />
-            <Label label="Mức phạt" value={level} />
-            <Label label="Xử lý vi phạm nhiều lần/ Tình tiết tăng nặng" value={xu_ly} />
+            <Label value={level} />
+            <Label label='Xử lý' value={xu_ly} />
+            <Label value={muc_do} color={removeAccented(muc_do) === 'nghiem trong' ? 'critical' : removeAccented(muc_do) === 'nang' ? 'high' : removeAccented(muc_do)  === 'trung binh' ? 'medium' : 'low' }/>
           </>
         )}
       </div>
-      <div className={itemStyled['btn']} onClick={handleDropdown}>{isDropdown ? 'Thu gọn' : 'Chi tiết'}<span>&#10150;</span></div>
+      <div className={`${itemStyled['btn']} ${isDropdown ? itemStyled['active'] : ''}`} onClick={handleDropdown}><img src={IMAGES.vectorDown} /></div>
     </div>
   );
 };

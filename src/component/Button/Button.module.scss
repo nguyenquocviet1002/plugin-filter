@@ -14,17 +14,19 @@
     cursor: pointer;
     &.primary{
         background-color: #D1A969;
+        color: #6D4300;
+        font-weight: 500;
         &:hover{
-            background-color: #a57a34;
+            background-color: #ffd38a;
         }
     }
     &.second{
-        background-color: #093B86;
+        background-color: #E32C3D;
+        color: #fff;
     }
     &.small{
-        max-width: 70px;
-        height: 25px;
-        font-size: 14px;
+        max-width: 100px;
+        height: 40px;
     }
 }
 .icon{
@@ -33,5 +35,16 @@
         width: 20px;
         height: auto;
         display: block;
+    }
+}
+@media (max-width: 767px){
+    .btn{
+        &.primary{
+            text-indent: -500px;
+            max-width: 40px;
+        }
+    }
+    .icon{
+        padding-left: 0;
     }
 }

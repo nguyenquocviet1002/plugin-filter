@@ -5,7 +5,6 @@ const Checkbox = ({...props}) => {
 
   return (
     <div className={checkboxStyled['selected']}>
-      <div className={checkboxStyled['label']}>{props.label}</div>
       <select className={checkboxStyled['select']} value={props.value} onChange={props.event}>
           <option value="" disabled>{props.placeholder}</option>
           {props.option.map((item) => (
