@@ -7,9 +7,28 @@
     font-size: 26px;
     font-weight: 600;
     margin-bottom: 10px;
+    transition: all 0.2s ease;
     cursor: pointer;
     &.active{
         color: #1C4BA0;
+    }
+    span{
+        text-transform: none;
+        font-size: 11px;
+        display: inline-block;
+        margin-left: 5px;
+        font-weight: 400;
+        transition: all 0.2s ease;
+        padding: 3px 10px;
+        border-radius: 14px;
+        background-color: #1c4ba0;
+        color: #fff;
+    }
+    &:hover{
+        color: red;
+        span{
+            background-color: red;
+        }
     }
 }
 .head{

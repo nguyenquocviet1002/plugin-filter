@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import { getList } from "./api/https";
 import { removeDuplicate, removeAccented } from "./utils/setup";
@@ -26,6 +26,18 @@ const App = () => {
   const [listKey2, setListKey2] = useState([]);
   const [show, setShow] = useState(false);
 
+  const [direction, setDirection] = useState(false);
+  const ref = useRef(null);
+
+  const controlDirection = () => {
+    const offsetTop = ref.current.getBoundingClientRect().top;
+    if (offsetTop <= 0) {
+      setDirection(true);
+    } else {
+      setDirection(false);
+    }
+  };
+
   useEffect(() => {
     getList()
       .then((response) => {
@@ -49,6 +61,11 @@ const App = () => {
         setListKey2(newAllKey);
       })
       .catch((err) => console.log(err));
+
+    window.addEventListener("scroll", controlDirection);
+    return () => {
+      window.removeEventListener("scroll", controlDirection);
+    };
   }, []);
 
   useEffect(() => {
@@ -121,8 +138,11 @@ const App = () => {
   };
 
   return (
-    <div className="filter_ksnb_1_0_0">
-      <div className="filter_ksnb_1_0_0__top">
+    <div id="page3" className="filter_ksnb_1_0_0">
+      <div
+        className={`${"filter_ksnb_1_0_0__top"} ${direction ? "fixed" : ""}`}
+        ref={ref}
+      >
         <div className="container">
           {
             <div className="filter_ksnb_1_0_0__inner">
@@ -145,6 +165,7 @@ const App = () => {
                   value={filter.key}
                   dropdown={listKey2}
                   handleDropdown={handleDropdown}
+                  eventDrop={handleSearch}
                 />
                 <Button
                   icon={IMAGES.iconSearch}
@@ -157,28 +178,36 @@ const App = () => {
               </div>
             </div>
           }
-        <div className="filter_ksnb_1_0_0__label">
-          {(filter.muc_do || filter.nhom_loi) && (
-            <Button
-              background="second"
-              size="small"
-              event={() => {
-                setFilter(initial);
-                setData(dataOriginal);
-                setListKey2(listKey);
-                setShow(false);
-              }}
-            >
-              Xóa bộ lọc
-            </Button>
-          )}
-        </div>
+          <div className="filter_ksnb_1_0_0__label">
+            {(filter.muc_do || filter.nhom_loi) && (
+              <Button
+                background="second"
+                size="small"
+                event={() => {
+                  setFilter(initial);
+                  setData(dataOriginal);
+                  setListKey2(listKey);
+                  setShow(false);
+                }}
+              >
+                Xóa bộ lọc
+              </Button>
+            )}
+          </div>
         </div>
       </div>
-      <div className="container-full">
+      <div className="container-full2">
         <div className="filter_ksnb_1_0_0__main">
           {nhomLoi.map((item, index) => {
-            return <List data={refillData(item)} cate={item} key={item} index={index} show={show} />;
+            return (
+              <List
+                data={refillData(item)}
+                cate={item}
+                key={item}
+                index={index}
+                show={show}
+              />
+            );
           })}
         </div>
       </div>

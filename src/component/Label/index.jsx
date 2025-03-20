@@ -1,14 +1,14 @@
 import React from "react";
 import labelStyled from "./Label.module.scss";
 
-const Label = ({ label, value, color }) => {
+const Label = ({ label, value, color, index }) => {
   const valueDom = (int) => {
     if (typeof int === "object") {
       return (
         <div>
           {int.map((item, index) => (
             <div key={`${index}-label-value`} className={labelStyled["obj"]}>
-              Lần {index + 1}:{" "}
+              Lần {index > 1 ? <span>&#62;&#61;{index + 1}</span>  : index + 1}:{" "}
               <span className={labelStyled["text"]}>{item}</span>
             </div>
           ))}
@@ -23,7 +23,7 @@ const Label = ({ label, value, color }) => {
             label === "Xử lý" ? labelStyled["hidden"] : ""
           }`}
         >
-          {label === "Xử lý" ? <strong>*Lưu ý:</strong> : ""} {int}
+          {label === "Xử lý" ? <strong>*Lưu ý:</strong> : ""} {index && <b>{index}.</b>} {int}
         </div>
       );
     }

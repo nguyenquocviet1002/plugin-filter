@@ -14,11 +14,13 @@ const List = (props) => {
     setIsDropdown(!isDropdown);
   };
 
+  const indexCate = index;
+
   return (
     <div className={listStyled['list']}>
       {data.length > 0  && (
         <>
-          <div className={`${listStyled['label']} ${isDropdown ? listStyled['active'] : ''}`} onClick={handleDropdown}>{cate}</div>
+          <div className={`${listStyled['label']} ${isDropdown ? listStyled['active'] : ''}`} onClick={handleDropdown}>{cate} {!isDropdown && <span>Xem đầy đủ</span>}</div>
           {isDropdown && (
             <div className={listStyled['head']}>
               <div className={`${listStyled['col']} ${listStyled['col__1']}`}>Hành vi</div>
@@ -28,7 +30,7 @@ const List = (props) => {
             </div>
           )}
           {isDropdown && data.map((item, index) => {
-            return <Item data={item} key={item.stt} index={index} />;
+            return <Item data={item} key={item.stt} index={index} cate={indexCate} />;
           })}
         </>
       )}

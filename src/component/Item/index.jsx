@@ -12,7 +12,7 @@ function getWindowDimensions() {
   };
 }
 
-const Item = ({data, index}) => {
+const Item = ({data, index, cate}) => {
   const [isDropdown, setIsDropdown] = useState(true);
   const [level, setLevel] = useState([]);
   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
@@ -51,7 +51,7 @@ const Item = ({data, index}) => {
     <div className={itemStyled['item']}>
       <div className={itemStyled['box']}>
         <div onClick={windowDimensions.width < 786 ? handleDropdown : null}>
-        <Label label={bo_luat} value={bo_luat} />
+        <Label label={bo_luat} value={bo_luat} index={`${cate + 1}.${index + 1}`} />
         </div>
         {isDropdown && (
           <>
