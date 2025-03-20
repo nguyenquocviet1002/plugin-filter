@@ -20,7 +20,7 @@ const List = (props) => {
     <div className={listStyled['list']}>
       {data.length > 0  && (
         <>
-          <div className={`${listStyled['label']} ${isDropdown ? listStyled['active'] : ''}`} onClick={handleDropdown}><span className={listStyled['title']}>{cate}</span> {!isDropdown && <span  className={listStyled['more']}>Xem đầy đủ</span>}</div>
+          <div className={`${listStyled['label']} ${isDropdown ? listStyled['active'] : ''}`} onClick={handleDropdown}><span className={listStyled['title']}>{cate}</span> {<span  className={listStyled['more']}>{!isDropdown ? 'Xem đầy đủ' : 'Thu gọn'}</span>}</div>
           {isDropdown && (
             <div className={listStyled['head']}>
               <div className={`${listStyled['col']} ${listStyled['col__1']}`}>Hành vi</div>
