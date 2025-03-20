@@ -24,6 +24,7 @@ const Input = ({...props}) => {
   return (
     <div className={inputStyled['bar']} ref={refDoctor}>
         <input type="text" className={inputStyled['input']} placeholder={props.placeholder} onChange={props.event} onFocus={() => setIsDropdown(true)} onClick={() => setIsDropdown(true)} value={props.value} />
+        {/* {props.value && <div className={inputStyled['remove']} onClick={props.remove}>&#10005;</div>} */}
         {isDropdown && (
           <div className={inputStyled['dropdown']}>
            {shuffle(props.dropdown).slice(0, 5).map(item => <div className={inputStyled['item']} key={item} onClick={() => {props.handleDropdown(item); setIsDropdown(false); props.eventDrop()}}>{item}</div>)}

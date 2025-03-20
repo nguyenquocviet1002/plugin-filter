@@ -12,12 +12,12 @@ function getWindowDimensions() {
   };
 }
 
-const Item = ({data, index, cate}) => {
+const Item = ({data, search}) => {
   const [isDropdown, setIsDropdown] = useState(true);
   const [level, setLevel] = useState([]);
   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
 
-  const {bo_luat, muc_do, lan_1, lan_2, lan_3, xu_ly} = data;
+  const {bo_luat, muc_do, lan_1, lan_2, lan_3, xu_ly, stt} = data;
 
   useEffect(() => {
     if(lan_1){
@@ -43,6 +43,12 @@ const Item = ({data, index, cate}) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+    if(search){
+      setIsDropdown(true);
+    }
+  }, [search])
+
   const handleDropdown = () => {
     setIsDropdown(!isDropdown);
   }
@@ -51,7 +57,7 @@ const Item = ({data, index, cate}) => {
     <div className={itemStyled['item']}>
       <div className={itemStyled['box']}>
         <div onClick={windowDimensions.width < 786 ? handleDropdown : null}>
-        <Label label={bo_luat} value={bo_luat} index={`${cate + 1}.${index + 1}`} />
+        <Label label={bo_luat} value={bo_luat} index={stt} />
         </div>
         {isDropdown && (
           <>

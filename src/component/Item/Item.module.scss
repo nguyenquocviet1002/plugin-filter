@@ -61,14 +61,15 @@
                 width: 100%;
             }
             &:nth-child(2){
-                width: 70%;
+                width: 65%;
                 order: 2;
             }
             &:nth-child(3){
                 order: 4;
             }
             &:nth-child(4){
-                width: 30%;
+                width: 35%;
+                max-width: 100%;
                 order: 3;
                 text-align: end;
             }

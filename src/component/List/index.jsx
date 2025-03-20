@@ -3,7 +3,7 @@ import Item from "../Item";
 import listStyled from "./List.module.scss";
 
 const List = (props) => {
-  const { data, cate, show, index } = props;
+  const { data, cate, show, index, search } = props;
   const [isDropdown, setIsDropdown] = useState(false);
 
   useEffect(() => {
@@ -13,8 +13,6 @@ const List = (props) => {
   const handleDropdown = () => {
     setIsDropdown(!isDropdown);
   };
-
-  const indexCate = index;
 
   return (
     <div className={listStyled['list']}>
@@ -29,8 +27,8 @@ const List = (props) => {
               <div className={`${listStyled['col']} ${listStyled['col__4']}`}>Mức độ</div>
             </div>
           )}
-          {isDropdown && data.map((item, index) => {
-            return <Item data={item} key={item.stt} index={index} cate={indexCate} />;
+          {isDropdown && data.map((item) => {
+            return <Item data={item} key={item.stt} search={search} />;
           })}
         </>
       )}

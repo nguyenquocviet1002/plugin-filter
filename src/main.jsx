@@ -26,21 +26,10 @@ const App = () => {
   const [listKey2, setListKey2] = useState([]);
   const [show, setShow] = useState(false);
 
-  const [direction, setDirection] = useState(false);
-  const ref = useRef(null);
+  const myRef = useRef(null);
 
-  const myRef = useRef(null)
-
-   const executeScroll = () => myRef.current.scrollIntoView({ behavior: "smooth" })    
-
-  const controlDirection = () => {
-    const offsetTop = ref.current.getBoundingClientRect().top;
-    if (offsetTop <= 0) {
-      setDirection(true);
-    } else {
-      setDirection(false);
-    }
-  };
+  const executeScroll = () =>
+    myRef.current.scrollIntoView({ behavior: "smooth" });
 
   useEffect(() => {
     getList()
@@ -65,11 +54,6 @@ const App = () => {
         setListKey2(newAllKey);
       })
       .catch((err) => console.log(err));
-
-    window.addEventListener("scroll", controlDirection);
-    return () => {
-      window.removeEventListener("scroll", controlDirection);
-    };
   }, []);
 
   useEffect(() => {
@@ -88,14 +72,25 @@ const App = () => {
       dataNew = dataNew.filter((item) => {
         const itemNonAccented = item.tim_kiem.map((keyWord) =>
           removeAccented(keyWord)
-        );
-        if (filter.key) {
-          return itemNonAccented.includes(removeAccented(filter.key));
+      );
+      if (filter.key) {
+        const findArr = itemNonAccented.includes(removeAccented(filter.key));
+        if(!findArr){
+          return removeAccented(item.bo_luat).includes(removeAccented(filter.key));
         } else {
-          return dataNew;
+          return findArr;
         }
-      });
-      setData(dataNew);
+      } else {
+        return dataNew;
+      }
+    });
+    setData(dataNew);
+      // if(filter.key && dataNew.length > 0){
+      //   alertMessage('Câu trả lời bên dưới ý')
+      // }
+      // if(filter.key && dataNew.length <= 0){
+      //   alertMessage('Làm gì có')
+      // }
     }
   }, [filter.nhom_loi, filter.muc_do, isSearch]);
 
@@ -137,6 +132,10 @@ const App = () => {
     executeScroll();
   };
 
+  const alertMessage = (message) => {
+    alert(message);
+  } 
+
   const refillData = (value) => {
     const reData = data.filter((item) => {
       return item.nhom_loi === value;
@@ -146,10 +145,7 @@ const App = () => {
 
   return (
     <div id="page3" className="filter_ksnb_1_0_0" ref={myRef}>
-      <div
-        className={`${"filter_ksnb_1_0_0__top"}`}
-        ref={ref}
-      >
+      <div className={`${"filter_ksnb_1_0_0__top"}`}>
         <div className="container">
           {
             <div className="filter_ksnb_1_0_0__inner">
@@ -173,12 +169,13 @@ const App = () => {
                   dropdown={listKey2}
                   handleDropdown={handleDropdown}
                   eventDrop={handleSearch}
+                  remove={() => setFilter((prev) => ({...prev, key: ''}))}
                 />
                 <Button
                   icon={IMAGES.iconSearch}
                   background="primary"
                   style={{ marginLeft: "10px" }}
-                  event={filter.key ? handleSearch : null}
+                  event={filter.key ? handleSearch : () => alertMessage('Vui lòng nhập từ khóa tìm kiếm')}
                 >
                   Tìm kiếm
                 </Button>
@@ -205,19 +202,24 @@ const App = () => {
       </div>
       <div className="container-full2">
         <div className="filter_ksnb_1_0_0__main">
-          {data.length > 0 ? nhomLoi.map((item, index) => {
-            return (
-              <List
-                data={refillData(item)}
-                cate={item}
-                key={item}
-                index={index}
-                show={show}
-              />
-            );
-          })
-        : <div className="filter_ksnb_1_0_0__empty">Không có kết quả tìm kiếm</div>
-        }
+          {data.length > 0 ? (
+            nhomLoi.map((item, index) => {
+              return (
+                <List
+                  data={refillData(item)}
+                  cate={item}
+                  key={item}
+                  index={index}
+                  show={show}
+                  search={filter.key}
+                />
+              );
+            })
+          ) : (
+            <div className="filter_ksnb_1_0_0__empty">
+              Không có kết quả tìm kiếm
+            </div>
+          )}
         </div>
       </div>
     </div>
