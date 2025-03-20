@@ -59,6 +59,11 @@
         font-size: 14px;
         font-style: italic;
     }
+    .value{
+        max-width: 100px;
+        width: 100%;
+        text-align: center;
+    }
     .value strong{
         display: inline;
     }

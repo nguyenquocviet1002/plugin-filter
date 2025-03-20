@@ -16,7 +16,7 @@ const Label = ({ label, value, color, index }) => {
       );
     } else {
       return (
-        <div
+        int && <div
           className={`${labelStyled["value"]} ${
             color ? labelStyled["security"] : ""
           } ${color ? labelStyled[color] : ""} ${

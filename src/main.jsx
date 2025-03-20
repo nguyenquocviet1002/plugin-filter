@@ -17,8 +17,8 @@ const App = () => {
   };
   const mucdo = ["Nhẹ", "Trung bình", "Nặng", "Nghiêm trọng"];
 
-  const [dataOriginal, setDataOriginal] = useState();
-  const [data, setData] = useState();
+  const [dataOriginal, setDataOriginal] = useState([]);
+  const [data, setData] = useState([]);
   const [filter, setFilter] = useState(initial);
   const [nhomLoi, setNhomLoi] = useState([]);
   const [isSearch, setIsSearch] = useState(false);
@@ -28,6 +28,10 @@ const App = () => {
 
   const [direction, setDirection] = useState(false);
   const ref = useRef(null);
+
+  const myRef = useRef(null)
+
+   const executeScroll = () => myRef.current.scrollIntoView({ behavior: "smooth" })    
 
   const controlDirection = () => {
     const offsetTop = ref.current.getBoundingClientRect().top;
@@ -118,16 +122,19 @@ const App = () => {
   const handleSelect1 = (e) => {
     setFilter((prev) => ({ ...prev, nhom_loi: e.target.value }));
     setShow(true);
+    executeScroll();
   };
 
   const handleSelect3 = (e) => {
     setFilter((prev) => ({ ...prev, muc_do: e.target.value }));
     setShow(true);
+    executeScroll();
   };
 
   const handleSearch = () => {
     setIsSearch(!isSearch);
     setShow(true);
+    executeScroll();
   };
 
   const refillData = (value) => {
@@ -138,9 +145,9 @@ const App = () => {
   };
 
   return (
-    <div id="page3" className="filter_ksnb_1_0_0">
+    <div id="page3" className="filter_ksnb_1_0_0" ref={myRef}>
       <div
-        className={`${"filter_ksnb_1_0_0__top"} ${direction ? "fixed" : ""}`}
+        className={`${"filter_ksnb_1_0_0__top"}`}
         ref={ref}
       >
         <div className="container">
@@ -179,7 +186,7 @@ const App = () => {
             </div>
           }
           <div className="filter_ksnb_1_0_0__label">
-            {(filter.muc_do || filter.nhom_loi) && (
+            {(filter.muc_do || filter.nhom_loi || filter.key) && (
               <Button
                 background="second"
                 size="small"
@@ -198,7 +205,7 @@ const App = () => {
       </div>
       <div className="container-full2">
         <div className="filter_ksnb_1_0_0__main">
-          {nhomLoi.map((item, index) => {
+          {data.length > 0 ? nhomLoi.map((item, index) => {
             return (
               <List
                 data={refillData(item)}
@@ -208,7 +215,9 @@ const App = () => {
                 show={show}
               />
             );
-          })}
+          })
+        : <div className="filter_ksnb_1_0_0__empty">Không có kết quả tìm kiếm</div>
+        }
         </div>
       </div>
     </div>
